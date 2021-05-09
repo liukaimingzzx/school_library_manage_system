@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://getbootstrap.com/docs/4.1/examples/sign-in/ -->
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Register</title>
+    <link href="../../static/ico/ico2.jpg" th:href="@{ico/ico2.jpg}" rel="icon">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/register.css" th:href="@{css/register.css}" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin" action="/registerSuccess" method="post">
+
+        <img class="mb-4" src="../../static/img/image7.jpg" th:src="@{img/image7.jpg}" alt="" width="120" height="120">
+        <h1 class="h3 mb-3 font-weight-normal">请注册</h1>
+
+        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+
+
+        <label for="inputEmail" class="sr-only">邮箱</label>
+        <input type="text" id="inputEmail" maxlength="30" name="email" class="form-control" placeholder="邮箱" required="" autofocus="">
+
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" maxlength="20" name="password" class="form-control" placeholder="密码" required="">
+
+        <label for="inputUsername" class="sr-only">姓名</label>
+        <input type="text" id="inputUsername" maxlength="10" name="userName" class="form-control" placeholder="姓名" required="" autofocus="">
+
+        <label for="inputGender" class="sr-only">性别</label>
+        <input type="text" id="inputGender" maxlength="4" name="gender" class="form-control" placeholder="性别" required="" autofocus="">
+
+        <label for="inputQQ" class="sr-only">QQ</label>
+        <input type="number" id="inputQQ" maxlength="20" name="qq" class="form-control" placeholder="QQ" required="" autofocus="">
+
+        <label for="inputTel" class="sr-only">电话</label>
+        <input type="number" id="inputTel" name="tel" maxlength="20" class="form-control" placeholder="电话" required="" autofocus="">
+
+        <label for="inputIntroduction" class="sr-only">简介</label>
+        <input type="text" id="inputIntroduction" name="introduction" class="form-control" placeholder="简介" required="" autofocus="">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+        <a class="mt-5 mb-3 text-muted" href="/login">登录</a>
+        <p class="mt-5 mb-3 text-muted">©Copyright 2019-2020</p>
+    </form>
+
+</body></html>

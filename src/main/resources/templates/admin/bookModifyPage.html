@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>BookDetail</title>
+  <link href="../../static/ico/ico2.jpg" th:href="@{ico/ico2.jpg}" rel="icon">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
+
+
+
+  <script>
+
+    
+    function submitBook(){
+      $.ajax({
+        cache: true,
+        type: "POST",
+        url:"/modifyBookSuccess",
+        data:$('#bookForm').serialize(),// 你的formid
+        async: false,
+        error: function(request) {
+          alert("Connection error");
+        },
+        success: function(data) {
+          alert(data.msg);
+          location.reload();
+        }
+      });
+    }
+  </script>
+
+  <style th:inline="text">
+    body{
+      background: url("[[@{/}]]img/concrete-texture.png");
+    }
+  </style>
+
+
+</head>
+
+<!--opacity: 0.1;-->
+
+<body background=".." style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/adminMainMenu">管理员系统</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/addBook">书籍录入</a></li>
+        <li><a href="/bookManage">书籍管理</a></li>
+        <li><a href="/userManage">读者管理</a></li>
+        <li><a href="/getNotReturnedRecord">罚款处理</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" th:text="${session.currentEmail}">未登录</a></li>
+        <li><a href="/adminLogin">退出</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+
+      <form class="form-horizontal" id="bookForm">
+        <div class="form-group">
+          <label for="inputBookId" class="col-sm-2 control-label">ISBN号</label>
+          <div class="col-sm-7">
+            <input type="text" required th:value="${bookId}" name="bookId" class="form-control" maxlength="13" id="inputBookId">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBookIndex" class="col-sm-2 control-label">索书号</label>
+          <div class="col-sm-7">
+            <input type="text" required th:value="${bookIndex}" class="form-control" name="bookIndex" maxlength="20" id="inputBookIndex">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBookClassify" class="col-sm-2 control-label">分类</label>
+          <div class="col-sm-7">
+            <input type="text" required th:value="${bookClassify}" class="form-control" name="bookClassify" maxlength="20" id="inputBookClassify">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBookName" class="col-sm-2 control-label">书名</label>
+          <div class="col-sm-7">
+            <input type="text" required th:value="${bookName}" class="form-control" name="bookName" maxlength="30" id="inputBookName">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBookAuthor" class="col-sm-2 control-label">作者</label>
+          <div class="col-sm-7">
+            <input type="text" required th:value="${bookAuthor}" class="form-control" name="bookAuthor" maxlength="20" id="inputBookAuthor">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBookPress" class="col-sm-2 control-label">出版单位</label>
+          <div class="col-sm-7">
+            <input type="text" required th:value="${bookPress}" class="form-control" name="bookPress" maxlength="20" id="inputBookPress">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputBookRestNum" class="col-sm-2 control-label">剩余数目</label>
+          <div class="col-sm-7">
+            <input type="number" required th:value="${bookRestNum}" class="form-control" name="bookRestNum" maxlength="11" id="inputBookRestNum">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputBookTotalNum" class="col-sm-2 control-label">总数目</label>
+          <div class="col-sm-7">
+            <input type="number" required th:value="${bookTotalNum}" class="form-control" name="bookTotalNum" maxlength="11" id="inputBookTotalNum">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputBookPrice" class="col-sm-2 control-label">单价</label>
+          <div class="col-sm-7">
+            <input type="number" required th:value="${bookPrice}" class="form-control" name="bookPrice" maxlength="11" id="inputBookPrice">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputBookIntroduction" class="col-sm-2 control-label">简介</label>
+          <div class="col-sm-7">
+            <textarea class="form-control" required th:text="${bookIntroduction}" name="bookIntroduction" id="inputBookIntroduction" rows="9"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-5">
+            <button type="button" onclick="submitBook()" class="btn btn-success btn-lg">确认修改</button>
+          </div>
+        </div>
+
+      </form>
+
+
+    </main>
+  </div>
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
